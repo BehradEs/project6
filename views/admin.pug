@@ -1,0 +1,18 @@
+extends layout
+block content
+  .container
+    .cards_container
+        if admin
+            each Admin in admin
+                .location_card( style=`background-image: url(../uploads/${Admin.image.filename})`)  
+                    
+                    .location_card_content
+                      .location_header
+                             h3 #{Admin.locationName}
+                             h3 user:#{Admin.username}
+                             img( id="photo" src=`../uploads/${Admin.image.filename}`) 
+                      a(href=`/test/${Admin._id}`) Details
+                             
+                             form(id="rate" ,action="/admin",method="post")
+                                   input#email.form-control( name="locationID" ,value =`${Admin._id}`,type="hidden")
+                             

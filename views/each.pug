@@ -1,0 +1,61 @@
+extends layout
+
+block content
+    .row1
+        if message != ''
+            p #{message}
+    .row1
+        .locationPage
+            .img_wapper
+                img( id='photo' ,src=`../uploads/${eachlocation[0].image.filename}`)
+                h1 #{eachlocation[0].title} 
+                .location_details
+                     p.description #{eachlocation[0].description}
+                       .singleColumn
+                         .column_pict
+                              if user
+                                  if thumbclass > 0
+                                      i.fa.fa-thumbs-up#rated( user-id=`${user._id}` location-id=`${eachlocation[0]._id}`  thumb-id='thumb-active'  )
+                                  else
+                                      i.fa.fa-thumbs-down#rated( user-id=`${user._id}` location-id=`${eachlocation[0]._id}`  thumb-id='thumb'  )
+                              else
+                                    i.fa.fa-thumbs-down#rated(location-id=`${eachlocation[0]._id}`  thumb-id='thumb'  )
+                              
+                              h2 #{totalRated} Likes
+    .row1
+        
+    if user 
+        .row1
+            .commentForm
+                form(action="/comments",method="post")
+                    .form-group
+                        
+                        textarea#comment.form-control(type="text",name="comment", placeholder="Enter your review" )
+                    .form-group
+                        input#email.form-control(name="locationId" ,value =`${eachlocation[0]._id}`,type="hidden")
+                        input#email.form-control(name="user" ,value =`${user}`,type="hidden")
+                    .col-md-12.text-center.mb-3
+                       input.btn.btn-block.mybtn.btn-primary.tx-tfm(type="submit",value="Submit comment")
+
+    .row1
+        .commentContainer
+            for comments in comment
+                .clearfix
+                    .comments-item-head
+                        .comment-item-author
+                            x #{comments.firstname} #{comment.lastname}
+                            span.post-divider  | 
+                            | #{comments.updatedAt}
+                    .comment-item-text
+                        p #{comments.comment}
+       
+
+
+
+
+
+
+//- (onclick=`updateRateTable(${onelocation._id}, ${user._id}, heartclass)`)
+
+
+            

@@ -1,0 +1,13 @@
+extends layout
+block content
+  .container
+    .cards_container
+        if reviews
+            each review in reviews
+                .location_card( style=`background-image: url(../uploads/${review.image.filename})`)
+                  .location_card_content
+                            .location_header
+                                  h3 #{review.locationName}
+                                  span #{review.description}
+                                  img( id="photo" src=`../uploads/${review.image.filename}`)   
+                            a(href=`/each/${review._id}`) Click Here for more details     

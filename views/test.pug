@@ -1,0 +1,16 @@
+extends layout
+block content
+    .moviePage
+        .img_wapper
+          img( id="photo1" src=`../uploads/${test[0].image.filename}`)
+          .movie_details
+             
+             h1 #{test[0].locationName}
+             p.description #{test[0].description}
+             form(id="rate",action="/test",method="post")
+                  div
+                    input(type="submit",name="Approve" , value="Approve" ) 
+                    input#email.form-control( name="locationID" ,value =`${test[0]._id}`,type="hidden")
+                    
+               
+             
